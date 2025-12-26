@@ -1,58 +1,79 @@
-# Homelab Infra GitOps (Option A)
+# Homelab Infra GitOps - Centralized Control Plane
 
-This repo area centralizes ArgoCD control-plane, Image Updater, Observability, and per-environment SealedSecrets while keeping blog workloads in `developed-apps/blog/gitops/kubernetes/...`.
+**Status**: ✅ Production - Migration completed 2025-12-25
 
-## Layout
+This repository serves as the **single source of truth** for the homelab GitOps control plane. It centralizes ArgoCD Applications, AppProjects, SealedSecrets, Observability infrastructure, and Image Updater configuration. Application workloads remain in their respective repositories (e.g., [blog-gitops](https://github.com/petedillo/blog-gitops)).
 
-- `argocd/projects/` — AppProject definitions (`petedillo-dev`, `petedillo-stage`)
-- `argocd/applications/` — Applications (`blog-dev`, `blog-stage`, `observability-*`, `argocd-image-updater`)
-- `image-updater/` — Kustomize base + values for ArgoCD Image Updater
-- `observability/base|overlays/{dev,stage}` — Prometheus/Grafana and env patches
-- `clusters/{dev,stage}/sealed-secrets/` — environment-specific sealed secrets
+## Repository Structure
 
-## Migration Order
-
-1. Dev: sync `argocd/projects`, `argocd/applications` (observability-dev, argocd-image-updater, blog-dev).
-2. Validate dev: namespaces, PVCs, Services/Endpoints, Ingress/TLS, NetworkPolicies.
-3. Stage: sync `observability-stage`, `blog-stage`; validate like dev.
-4. Decommission old ArgoCD app definitions after new ownership is stable.
-
-## Namespace & Ingress Checks (kubectl)
-
-```zsh
-# Verify namespaces exist (ArgoCD will create when enabled)
-kubectl get ns blog-dev blog-stage observability argocd
-
-# Create missing namespaces proactively if needed
-kubectl create ns blog-dev || true
-kubectl create ns blog-stage || true
-kubectl create ns observability || true
-
-# Check SealedSecrets controller
-kubectl get deploy -n kube-system sealed-secrets-controller || \
-  kubectl get deploy -A | grep sealed-secrets
-
-# Verify TLS secrets and hosts (dev/stage)
-kubectl get secret -n blog-stage cloudflare-origin-cert
-kubectl get ingress -n observability grafana
-
-# Storage bindings
-kubectl get pvc -A | grep -E "blog-(dev|stage)|observability"
-kubectl get pv
-
-# NetworkPolicies
-kubectl get netpol -n blog-dev
-kubectl get netpol -n blog-stage
+```
+homelab-gitops/
+├── argocd/
+│   ├── projects/              # AppProject definitions
+│   │   ├── petedillo-dev.yaml
+│   │   └── petedillo-stage.yaml
+│   └── applications/          # ArgoCD Application manifests
+│       ├── blog-dev.yaml
+│       ├── blog-stage.yaml
+│       ├── observability-dev.yaml
+│       ├── observability-stage.yaml
+│       └── argocd-image-updater.yaml
+├── clusters/
+│   ├── dev/sealed-secrets/    # Dev environment secrets
+│   │   ├── admin-credentials.yaml
+│   │   ├── blog-app-credentials.yaml
+│   │   ├── jwt-secret.yaml
+│   │   ├── nexus-registry.yaml
+│   │   └── postgres-credentials.yaml
+│   └── stage/sealed-secrets/  # Stage environment secrets
+│       ├── admin-credentials.yaml
+│       ├── blog-app-credentials.yaml
+│       ├── cloudflare-cert.yaml
+│       ├── jwt-secret.yaml
+│       ├── nexus-registry.yaml
+│       └── postgres-credentials.yaml
+├── image-updater/
+│   ├── base/                  # Image Updater Kustomize base
+│   │   ├── kustomization.yaml
+│   │   └── registry-sealed-secret.yaml
+│   └── values/
+│       └── values.yaml
+└── observability/
+    ├── base/                  # Prometheus/Grafana base
+    │   ├── grafana-dashboards.yaml
+    │   ├── grafana-ingress.yaml
+    │   ├── kustomization.yaml
+    │   └── prometheus-rules.yaml
+    └── overlays/
+        ├── dev/
+        │   └── kustomization.yaml
+        └── stage/
+            ├── grafana-ingress-patch.yaml
+            ├── kustomization.yaml
+            └── prometheus-rules-patch.yaml
 ```
 
-## ArgoCD Ownership Checks
+## Architecture
 
-- Ensure only one `Application` manages each namespace at a time (avoid overlap during cutover).
-- Confirm `spec.destination.namespace` and Kustomize overlay paths match existing setup.
-- Preserve resource names/selectors; do not rename Services, Deployments, PVCs, or TLS secret names.
+### Secret Management
+- **Global Secrets**: Image Updater registry credentials in `image-updater/base/registry-sealed-secret.yaml` (argocd namespace)
+- **Workload Secrets**: Per-environment in `clusters/{dev,stage}/sealed-secrets/`
+- All secrets are SealedSecrets, automatically unsealed by the sealed-secrets controller
 
-## Notes
+### Image Updater
+- Monitors container images in Nexus registry (docker.toastedbytes.com)
+- Writes image updates to `.argocd-source-blog-{env}.yaml` in blog-gitops overlays
+- ArgoCD auto-syncs changes from blog-gitops repository
 
-- Global `registry-sealed-secret.yaml` for Image Updater lives in `image-updater/base` targeting `namespace: argocd`.
-- Workload Nexus pull secrets remain per-env in `clusters/<env>/sealed-secrets/nexus-registry.yaml`.
-- `.argocd-source-blog-<env>.yaml` remains in blog overlays; Applications use Kustomize without directory recursion.
+### Observability
+- **Base**: Shared Prometheus/Grafana configuration
+- **Overlays**: Environment-specific patches (dev, stage)
+- Ingresses: `grafana-dev.toastedbytes.com`, `grafana-stage.toastedbytes.com`
+
+### Service Selector Pattern
+**Important**: Kustomize labels should NOT include `includeSelectors: true`. Service patches are used to ensure selectors only match on `app` label (not environment label) to avoid endpoint mismatches.
+
+## Repository Links
+
+- **This Repository**: https://github.com/petedillo/homelab-gitops
+- **Blog Workloads**: https://github.com/petedillo/blog-gitops
