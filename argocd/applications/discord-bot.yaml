@@ -4,10 +4,11 @@ metadata:
   name: discord-bot
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: bot=docker.toastedbytes.com/discord-ai-bot
-    argocd-image-updater.argoproj.io/bot.update-strategy: latest
-    argocd-image-updater.argoproj.io/bot.allow-tags: regexp:^latest$
+    # ArgoCD Image Updater configuration
+    argocd-image-updater.argoproj.io/image-list: bot=docker.toastedbytes.com/discord-ai-bot:latest
+    argocd-image-updater.argoproj.io/bot.update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
