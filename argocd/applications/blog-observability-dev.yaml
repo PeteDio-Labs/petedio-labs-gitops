@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog-observability-dev
+  namespace: argocd
+  labels:
+    layer: tenant
+    tenant: blog
+    environment: dev
+spec:
+  project: petedillo-dev
+  source:
+    repoURL: https://github.com/petedillo/blog-gitops
+    targetRevision: HEAD
+    path: homelab/infra/gitops/blog-observability/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blog-grafana-dashboards
+  namespace: observability
+data:
+  dashboard-ids.txt: |
+    # Blog Application Dashboards
+    # Import these dashboard IDs into Grafana:
+    # - 7249: Node Exporter Full
+    # - 6417: NGINX Ingress controller
+    # - 9614: PostgreSQL Database
+    # - 9628: Prometheus
+    #
+    # For production use, create dashboard definitions as JSON
+    # and mount them as ConfigMaps with provider configuration

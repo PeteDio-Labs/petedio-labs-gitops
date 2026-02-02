@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: discord-bot-grafana-dashboards
+  namespace: observability
+data:
+  dashboard-ids.txt: |
+    # Discord Bot Dashboards
+    # Create custom dashboards for:
+    # - Discord Bot Metrics (discord_bot_up, request_duration_seconds, messages_processed_total, websocket_latency_seconds)
+    # - Discord Bot Health & Performance
+    # - Discord Bot Error Rates & Latency

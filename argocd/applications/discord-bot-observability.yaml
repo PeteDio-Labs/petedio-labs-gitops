@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: discord-bot-observability
+  namespace: argocd
+  labels:
+    layer: tenant
+    tenant: discord-bot
+    environment: prod
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/petedillo/blog-gitops
+    targetRevision: HEAD
+    path: homelab/infra/gitops/discord-bot-observability/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

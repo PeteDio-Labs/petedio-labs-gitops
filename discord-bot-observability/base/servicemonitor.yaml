@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: discord-bot-monitor
+  namespace: observability
+spec:
+  selector:
+    matchLabels:
+      app: discord-bot
+  namespaceSelector:
+    matchNames:
+      - discord-bot
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
