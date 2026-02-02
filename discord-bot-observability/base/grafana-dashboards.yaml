@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: discord-bot-grafana-dashboards
   namespace: observability
+  labels:
+    grafana_dashboard: "1"
 data:
   discord-bot-dashboard.json: |
     {
