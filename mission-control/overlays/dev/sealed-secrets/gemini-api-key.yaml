@@ -1,0 +1,13 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: backend-secrets-gemini
+  namespace: mission-control
+spec:
+  encryptedData:
+    GEMINI_API_KEY: AgCsjDD3A65kl/NunHbYDfeUFWQVPKZXepVq9mTLx2SKrbqUSpznN3M+oLM2obhKdElROepA8i8JpYE+EEyAzAi3ew2ERF3Mbrnym9kWdgFoPgDfMuen+Qxy5abHNOcmhC7pYEPrqyPDtqsCQsT8dNz/9GfS6L7wTs7bvxck1JadyJxkiCxTdLAVQKYzl/6oL81RlNJM63wghRy6cvSjpTZ773pazZs3VmYagCv/Hh0Dy/qhI6ZCF4sBqMtQdTqwPwhZwg+259s3vCzZOjiDj5Gx2v45dUXGu204nPnUaw20VGojr0CW9lvLAAbnRnp29G9Mq3gOP0mIK25EIR83sDmhE6JSlef/xqNNKP3nqn3lLCrdqpcvyN8f9mr9fSh4iK24WGsvTD8kcggWvsBdY4pnGumVyAikbmHOY9rUnMw+eceapdIX6x1Nm017KaPBpcyX0nXb5GkiHvwqggTqgcwA+v46+8NcEegQVyTQq74/jItE2OmxIkEnIyBSCF8LH6hHCCmPR3fFX+QRnhlt+dxq2xb/fck+1CbrenYXvO7L+BqXdSN1k84NwK4BHQzDM6AZCqFCwZBlaqLH+wndy8aHRDmhouut4y1ElkxKEIj33UOD/xBFPhJwtnm5UQB5zmfjlU1QtcLGBuWvwtYH4LkmVzPZt/yOWvDsTLFvw/uHbOdPYCKRo68jxQIUoliLp7Wd+EYASGpFSR0BXharz5+x415jrRDKN6QvDpvQ5dtsGxi071Dllmk=
+  template:
+    metadata:
+      name: backend-secrets-gemini
+      namespace: mission-control
