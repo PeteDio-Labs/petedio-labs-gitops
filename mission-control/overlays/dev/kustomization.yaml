@@ -11,7 +11,7 @@ images:
 - name: docker.toastedbytes.com/mission-control-backend
   newTag: develop-latest
 - name: docker.toastedbytes.com/mission-control-web
-  newTag: develop-f313bd8
+  newTag: develop-latest
 
 patches:
 - patch: |-
