@@ -19,8 +19,15 @@ spec:
       - name: frontend
         image: docker.toastedbytes.com/mission-control-web:develop-latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
           name: http
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://mission-control-backend:3000"
+        - name: NEXT_PUBLIC_APP_NAME
+          value: "Mission Control"
+        - name: NEXT_PUBLIC_APP_VERSION
+          value: "1.0.0"
         resources:
           requests:
             cpu: 100m
@@ -31,12 +38,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 3000
           initialDelaySeconds: 10
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 3000
           initialDelaySeconds: 5
           periodSeconds: 5
