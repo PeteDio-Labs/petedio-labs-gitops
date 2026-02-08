@@ -26,3 +26,5 @@ spec:
     kind: '*'
   - group: 'batch'
     kind: '*'
+  - group: 'bitnami.com'
+    kind: SealedSecret
