@@ -1,17 +1,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: discord-bot-monitor
+  name: pete-bot-monitor
   namespace: observability
   labels:
     release: kube-prom-stack
 spec:
   selector:
     matchLabels:
-      app: discord-bot
+      app: pete-bot
   namespaceSelector:
     matchNames:
-      - discord-bot
+      - pete-bot
   endpoints:
   - port: metrics
     path: /metrics

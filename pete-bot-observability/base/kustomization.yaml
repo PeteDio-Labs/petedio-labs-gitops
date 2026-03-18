@@ -11,4 +11,4 @@ resources:
 labels:
   - pairs:
       layer: tenant
-      tenant: discord-bot
+      tenant: pete-bot

@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: discord-bot-observability
+  name: pete-bot-observability
   namespace: argocd
   labels:
     layer: tenant
-    tenant: discord-bot
+    tenant: pete-bot
     environment: prod
 spec:
   project: default
   source:
     repoURL: https://github.com/PeteDio-Labs/homelab-gitops
     targetRevision: HEAD
-    path: discord-bot-observability/overlays/prod
+    path: pete-bot-observability/overlays/prod
   destination:
     server: https://kubernetes.default.svc
     namespace: observability

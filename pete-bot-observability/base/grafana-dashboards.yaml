@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: discord-bot-grafana-dashboards
+  name: pete-bot-grafana-dashboards
   namespace: observability
   labels:
     grafana_dashboard: "1"
 data:
-  discord-bot-dashboard.json: |
+  pete-bot-dashboard.json: |
     {
       "annotations": {
         "list": [
@@ -21,7 +21,7 @@ data:
           }
         ]
       },
-      "description": "Discord Bot — detailed metrics for connectivity, commands, tools, Ollama AI, and qBittorrent",
+      "description": "Pete Bot — detailed metrics for connectivity, commands, tools, Ollama AI, and qBittorrent",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
@@ -88,8 +88,8 @@ data:
           "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
           "id": 3,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-          "targets": [ { "expr": "qbittorrent_available", "refId": "A" } ],
-          "title": "qBittorrent Status",
+          "targets": [ { "expr": "mission_control_available", "refId": "A" } ],
+          "title": "Mission Control Status",
           "type": "stat"
         },
         {
@@ -438,67 +438,18 @@ data:
           "targets": [ { "expr": "rate(ollama_request_duration_seconds_count[5m]) * 60", "legendFormat": "Requests / min", "refId": "A" } ],
           "title": "Ollama Request Rate",
           "type": "timeseries"
-        },
-        {
-          "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 47 },
-          "id": 500,
-          "title": "qBittorrent",
-          "type": "row"
-        },
-        {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "fieldConfig": {
-            "defaults": {
-              "color": { "mode": "palette-classic" },
-              "custom": { "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 15, "gradientMode": "scheme", "hideFrom": { "legend": false, "tooltip": false, "viz": false }, "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5, "scaleDistribution": { "type": "linear" }, "showPoints": "never", "spanNulls": true, "stacking": { "group": "A", "mode": "none" }, "thresholdsStyle": { "mode": "off" } },
-              "mappings": [],
-              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 0.5 }, { "color": "red", "value": 1 } ] },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 48 },
-          "id": 20,
-          "options": { "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
-          "targets": [
-            { "expr": "histogram_quantile(0.50, rate(qbittorrent_request_duration_seconds_bucket[5m]))", "legendFormat": "p50", "refId": "A" },
-            { "expr": "histogram_quantile(0.95, rate(qbittorrent_request_duration_seconds_bucket[5m]))", "legendFormat": "p95", "refId": "B" },
-            { "expr": "histogram_quantile(0.99, rate(qbittorrent_request_duration_seconds_bucket[5m]))", "legendFormat": "p99", "refId": "C" }
-          ],
-          "title": "qBittorrent API Latency (p50 / p95 / p99)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "fieldConfig": {
-            "defaults": {
-              "color": { "mode": "palette-classic" },
-              "custom": { "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 15, "gradientMode": "scheme", "hideFrom": { "legend": false, "tooltip": false, "viz": false }, "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5, "scaleDistribution": { "type": "linear" }, "showPoints": "never", "spanNulls": true, "stacking": { "group": "A", "mode": "none" }, "thresholdsStyle": { "mode": "off" } },
-              "mappings": [],
-              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 48 },
-          "id": 21,
-          "options": { "legend": { "calcs": ["lastNotNull"], "displayMode": "list", "placement": "right", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
-          "targets": [ { "expr": "rate(qbittorrent_request_duration_seconds_count[5m]) * 60", "legendFormat": "Requests / min", "refId": "A" } ],
-          "title": "qBittorrent Request Rate",
-          "type": "timeseries"
         }
       ],
       "refresh": "10s",
       "schemaVersion": 37,
       "style": "dark",
-      "tags": ["discord-bot", "metrics", "observability"],
+      "tags": ["pete-bot", "metrics", "observability"],
       "templating": { "list": [] },
       "time": { "from": "now-1h", "to": "now" },
       "timepicker": {},
       "timezone": "",
-      "title": "Discord Bot Metrics",
-      "uid": "discord-bot-metrics",
-      "version": 3,
+      "title": "Pete Bot Metrics",
+      "uid": "pete-bot-metrics",
+      "version": 1,
       "weekStart": ""
     }
