@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: web-search-service
+  namespace: observability
+  labels:
+    release: kube-prom-stack
+spec:
+  namespaceSelector:
+    matchNames:
+    - web-search
+  selector:
+    matchLabels:
+      app: web-search-service
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 30s

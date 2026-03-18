@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/petedillo/homelab-gitops
+    repoURL: https://github.com/PeteDio-Labs/homelab-gitops
     targetRevision: HEAD
     path: discord-bot-observability/overlays/prod
   destination:

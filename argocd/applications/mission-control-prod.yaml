@@ -9,7 +9,7 @@ spec:
   project: mission-control
 
   source:
-    repoURL: https://github.com/petedillo/mission-control-gitops.git
+    repoURL: https://github.com/PeteDio-Labs/mission-control-gitops.git
     targetRevision: main
     path: kubernetes/overlays/prod
 

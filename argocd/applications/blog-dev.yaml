@@ -11,10 +11,10 @@ metadata:
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
 spec:
-  project: petedillo-dev
+  project: blog-dev
 
   source:
-    repoURL: https://github.com/petedillo/blog-gitops
+    repoURL: https://github.com/PeteDio-Labs/blog-gitops
     targetRevision: HEAD
     path: kubernetes/overlays/dev
 

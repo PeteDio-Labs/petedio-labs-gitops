@@ -12,7 +12,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/petedillo/mission-control-gitops.git
+    repoURL: https://github.com/PeteDio-Labs/mission-control-gitops.git
     targetRevision: main
     path: kubernetes/observability/base
   destination:

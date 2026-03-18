@@ -1,12 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: discord-bot
+  name: web-search-service
   namespace: argocd
   annotations:
-    # ArgoCD Image Updater configuration
-    argocd-image-updater.argoproj.io/image-list: bot=docker.toastedbytes.com/discord-ai-bot:latest
-    argocd-image-updater.argoproj.io/bot.update-strategy: digest
+    argocd-image-updater.argoproj.io/image-list: websearch=docker.toastedbytes.com/web-search-service:latest
+    argocd-image-updater.argoproj.io/websearch.update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
     argocd-image-updater.argoproj.io/write-back-target: kustomization
@@ -15,19 +14,18 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/PeteDio-Labs/discord-bot-gitops
+    repoURL: https://github.com/PeteDio-Labs/homelab-gitops
     targetRevision: main
-    path: kubernetes/overlays/prod
+    path: web-search-service/base
   destination:
     server: https://kubernetes.default.svc
-    namespace: discord-bot
+    namespace: web-search
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - labelWithoutSelector=true
     retry:
       limit: 5
       backoff:

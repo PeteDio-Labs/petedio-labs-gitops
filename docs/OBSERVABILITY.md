@@ -94,4 +94,4 @@ observability namespace:
 
 - Blog API does not yet expose Prometheus `/metrics` (no micrometer dependency). Blog dashboard uses container-level metrics from cAdvisor/kube-state-metrics. Adding `micrometer-registry-prometheus` to the Spring Boot app will enable app-level metrics.
 - All dashboard ConfigMaps use `grafana_dashboard: "1"` label for Grafana sidecar auto-discovery.
-- AppProjects `petedillo-dev` and `petedillo-stage` allow both `blog-gitops` and `homelab-gitops` as source repos.
+- AppProjects `blog-dev` and `blog-stage` allow both `blog-gitops` and `homelab-gitops` as source repos.

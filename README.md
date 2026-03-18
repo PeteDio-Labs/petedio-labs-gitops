@@ -2,7 +2,7 @@
 
 **Status**: ✅ Production - Migration completed 2025-12-25
 
-This repository serves as the **single source of truth** for the homelab GitOps control plane. It centralizes ArgoCD Applications, AppProjects, SealedSecrets, Observability infrastructure, and Image Updater configuration. Application workloads remain in their respective repositories (e.g., [blog-gitops](https://github.com/petedillo/blog-gitops)).
+This repository serves as the **single source of truth** for the homelab GitOps control plane. It centralizes ArgoCD Applications, AppProjects, SealedSecrets, Observability infrastructure, and Image Updater configuration. Application workloads remain in their respective repositories (e.g., [blog-gitops](https://github.com/PeteDio-Labs/blog-gitops)).
 
 ## Repository Structure
 
@@ -10,8 +10,9 @@ This repository serves as the **single source of truth** for the homelab GitOps 
 homelab-gitops/
 ├── argocd/
 │   ├── projects/              # AppProject definitions
-│   │   ├── petedillo-dev.yaml
-│   │   └── petedillo-stage.yaml
+│   │   ├── blog-dev.yaml
+│   │   ├── blog-stage.yaml
+│   │   └── mission-control.yaml
 │   └── applications/          # ArgoCD Application manifests
 │       ├── blog-dev.yaml
 │       ├── blog-stage.yaml
@@ -75,5 +76,5 @@ homelab-gitops/
 
 ## Repository Links
 
-- **This Repository**: https://github.com/petedillo/homelab-gitops
-- **Blog Workloads**: https://github.com/petedillo/blog-gitops
+- **This Repository**: https://github.com/PeteDio-Labs/homelab-gitops
+- **Blog Workloads**: https://github.com/PeteDio-Labs/blog-gitops

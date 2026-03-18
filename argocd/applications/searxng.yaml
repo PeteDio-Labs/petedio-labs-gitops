@@ -1,23 +1,28 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: blog-observability
+  name: searxng
   namespace: argocd
-  labels:
-    layer: tenant
-    tenant: blog
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://github.com/PeteDio-Labs/homelab-gitops
-    targetRevision: HEAD
-    path: blog-observability/base
+    targetRevision: main
+    path: searxng/base
   destination:
     server: https://kubernetes.default.svc
-    namespace: observability
+    namespace: web-search
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

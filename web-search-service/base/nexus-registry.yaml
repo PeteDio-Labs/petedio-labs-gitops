@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: nexus-registry
+  namespace: web-search
+spec:
+  encryptedData:
+    .dockerconfigjson: AgBSJknqWMG1nmhhM74G0XQPKiIYBitF531PdW/BxOnYjdZ7/rxC6/ZOM/pRk7rXP4j2VeqWnwBxBu5x+iL/mkK0smQj+45oacqlsAllPzNk71/KbmZafnl/0i3bkC+YAQWGNXFr6yyTs1/XCNHUG/kB/jymhYVnOMagHciljXAKfybD+RF+Y0HvY78EEYLcQLmI8iVxiv2XwRCb66CwTH035VUMjO2m7WeR4a5d8SX/mP4XcadMyo3nGqdnbfugpaX2KY5idGS3JRRSx0kHWYRWh07y6RfRnPATFNHF+/te5EnMbBCmUzAK8pGe3PL12M6DcqE+kRmp/pPYmV1/g3AstUX7+++v8rBNGILdPgfF14QvWOlnK+/H5nUyRa48DlUh10LCAPysJNEUg9Feh8jeMuEPAih1A3EQIOvJE8E2gf6DHfCV5wIIFBJTP/S9BAlJ3stAvG3gud/XruPFQ4epOPaWVCz4aVxHAf8EH6rKbLICA5UrOsaokNL3/Ed+AUMeM5yfDYXtVK69Zht5v5AuCs5YuUiB/xMzGRDUeEz6o3c+YbZW8djXYdKf9Cv0MmcP698FZaF89ry8C0Q9rz8i6P88gPyvUWU20g3alxmBJCGOJomMH8khH+xhSavjai1VIuQqtQ6n0rCDG9LXGHSQizR9vsCOkByT4PtKuHDBt/EErkc1qFEKdUrkvW0pOO+0HSp2u69Ij/xbMuDsh5TNHQoI2GrdJLCQJ4bGB2t2d84g78HcJCJTD/6eW4TXV300bzi/1KHZ2Cyl7+oh79FgMT2BUnl/EQ9D9hHQtjnS9FlTcGnQYD9Tz3K1LK5AEdIUMP+UDwfAHUeklnI7wEf57gTHZjfPFVRoWllKgw==
+  template:
+    metadata:
+      name: nexus-registry
+      namespace: web-search
+    type: kubernetes.io/dockerconfigjson
