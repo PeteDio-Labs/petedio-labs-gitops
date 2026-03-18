@@ -21,7 +21,7 @@ data:
           }
         ]
       },
-      "description": "Pete Bot — detailed metrics for connectivity, commands, tools, Ollama AI, and qBittorrent",
+      "description": "Pete Bot — connectivity, commands, tools, Ollama AI, web search & Mission Control integration",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
@@ -438,6 +438,59 @@ data:
           "targets": [ { "expr": "rate(ollama_request_duration_seconds_count[5m]) * 60", "legendFormat": "Requests / min", "refId": "A" } ],
           "title": "Ollama Request Rate",
           "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 47 },
+          "id": 500,
+          "title": "External Services",
+          "type": "row"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 15, "gradientMode": "scheme", "hideFrom": { "legend": false, "tooltip": false, "viz": false }, "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5, "scaleDistribution": { "type": "linear" }, "showPoints": "never", "spanNulls": true, "stacking": { "group": "A", "mode": "none" }, "thresholdsStyle": { "mode": "off" } },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 5 }, { "color": "red", "value": 10 } ] },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 48 },
+          "id": 20,
+          "options": { "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
+          "targets": [
+            { "expr": "histogram_quantile(0.50, sum(rate(discord_bot_web_search_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p50", "refId": "A" },
+            { "expr": "histogram_quantile(0.95, sum(rate(discord_bot_web_search_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p95", "refId": "B" },
+            { "expr": "histogram_quantile(0.99, sum(rate(discord_bot_web_search_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p99", "refId": "C" }
+          ],
+          "title": "Web Search Duration (p50 / p95 / p99)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "palette-classic" },
+              "custom": { "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 15, "gradientMode": "scheme", "hideFrom": { "legend": false, "tooltip": false, "viz": false }, "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5, "scaleDistribution": { "type": "linear" }, "showPoints": "never", "spanNulls": true, "stacking": { "group": "A", "mode": "none" }, "thresholdsStyle": { "mode": "off" } },
+              "mappings": [],
+              "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "yellow", "value": 1 }, { "color": "red", "value": 2.5 } ] },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 48 },
+          "id": 21,
+          "options": { "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
+          "targets": [
+            { "expr": "histogram_quantile(0.50, sum(rate(mission_control_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p50", "refId": "A" },
+            { "expr": "histogram_quantile(0.95, sum(rate(mission_control_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p95", "refId": "B" },
+            { "expr": "histogram_quantile(0.99, sum(rate(mission_control_request_duration_seconds_bucket[5m])) by (le))", "legendFormat": "p99", "refId": "C" }
+          ],
+          "title": "Mission Control Request Duration (p50 / p95 / p99)",
+          "type": "timeseries"
         }
       ],
       "refresh": "10s",
@@ -450,6 +503,6 @@ data:
       "timezone": "",
       "title": "Pete Bot Metrics",
       "uid": "pete-bot-metrics",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }

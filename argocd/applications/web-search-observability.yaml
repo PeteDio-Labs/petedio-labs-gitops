@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-search-observability
+  namespace: argocd
+  labels:
+    layer: tenant
+    tenant: web-search-service
+    environment: prod
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/PeteDio-Labs/homelab-gitops
+    targetRevision: HEAD
+    path: web-search-observability/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
