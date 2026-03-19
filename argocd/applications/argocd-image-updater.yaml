@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/PeteDio-Labs/blog-gitops
+    repoURL: https://github.com/PeteDio-Labs/homelab-gitops
     targetRevision: HEAD
-    path: homelab/infra/gitops/image-updater/base
+    path: image-updater/base
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

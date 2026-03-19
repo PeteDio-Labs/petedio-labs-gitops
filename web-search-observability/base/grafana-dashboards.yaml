@@ -50,7 +50,7 @@ data:
           "gridPos": { "h": 4, "w": 6, "x": 0, "y": 1 },
           "id": 1,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-          "targets": [ { "expr": "web_search_service_up", "refId": "A" } ],
+          "targets": [ { "expr": "max(web_search_service_up)", "refId": "A" } ],
           "title": "Service Status",
           "type": "stat"
         },
@@ -222,10 +222,10 @@ data:
           "id": 20,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "value_and_name" },
           "targets": [
-            { "expr": "web_search_provider_available{provider=\"searxng\"}", "legendFormat": "SearXNG", "refId": "A" },
-            { "expr": "web_search_provider_available{provider=\"brave\"}", "legendFormat": "Brave", "refId": "B" },
-            { "expr": "web_search_provider_available{provider=\"tavily\"}", "legendFormat": "Tavily", "refId": "C" },
-            { "expr": "web_search_provider_available{provider=\"serpapi\"}", "legendFormat": "SerpAPI", "refId": "D" }
+            { "expr": "max(web_search_provider_available{provider=\"searxng\"})", "legendFormat": "SearXNG", "refId": "A" },
+            { "expr": "max(web_search_provider_available{provider=\"brave\"})", "legendFormat": "Brave", "refId": "B" },
+            { "expr": "max(web_search_provider_available{provider=\"tavily\"})", "legendFormat": "Tavily", "refId": "C" },
+            { "expr": "max(web_search_provider_available{provider=\"serpapi\"})", "legendFormat": "SerpAPI", "refId": "D" }
           ],
           "title": "Provider Availability",
           "type": "stat"

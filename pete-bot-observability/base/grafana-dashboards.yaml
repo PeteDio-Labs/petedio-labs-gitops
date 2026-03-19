@@ -50,7 +50,7 @@ data:
           "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
           "id": 1,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-          "targets": [ { "expr": "discord_bot_up", "refId": "A" } ],
+          "targets": [ { "expr": "max(discord_bot_up)", "refId": "A" } ],
           "title": "Bot Status",
           "type": "stat"
         },
@@ -69,7 +69,7 @@ data:
           "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
           "id": 2,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-          "targets": [ { "expr": "ollama_available", "refId": "A" } ],
+          "targets": [ { "expr": "max(ollama_available)", "refId": "A" } ],
           "title": "Ollama Status",
           "type": "stat"
         },
@@ -88,7 +88,7 @@ data:
           "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
           "id": 3,
           "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
-          "targets": [ { "expr": "mission_control_available", "refId": "A" } ],
+          "targets": [ { "expr": "max(mission_control_available)", "refId": "A" } ],
           "title": "Mission Control Status",
           "type": "stat"
         },
