@@ -8,7 +8,7 @@ spec:
 
   sourceRepos:
   - 'https://github.com/PeteDio-Labs/blog-gitops'
-  - 'https://github.com/PeteDio-Labs/homelab-gitops'
+  - 'https://github.com/PeteDio-Labs/petedio-labs-gitops'
 
   destinations:
   - namespace: blog-dev

@@ -14,7 +14,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/PeteDio-Labs/homelab-gitops
+    repoURL: https://github.com/PeteDio-Labs/petedio-labs-gitops
     targetRevision: main
     path: web-search-service/base
   destination:
