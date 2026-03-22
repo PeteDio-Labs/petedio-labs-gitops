@@ -33,3 +33,10 @@ spec:
   - group: 'bitnami.com'
     kind: SealedSecret
 
+  roles:
+  - name: mc-backend
+    description: MC Backend service account for read + sync operations
+    policies:
+    - p, proj:mission-control:mc-backend, applications, get, mission-control/*, allow
+    - p, proj:mission-control:mc-backend, applications, sync, mission-control/*, allow
+
