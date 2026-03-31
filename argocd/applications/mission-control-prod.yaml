@@ -15,7 +15,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: mission-control
+    namespace: mission-control-prod
 
   syncPolicy:
     automated:
