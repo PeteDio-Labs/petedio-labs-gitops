@@ -52,6 +52,25 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: allow-prometheus-ingress-query
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: mission-control-prod
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: mission-control
+      ports:
+        - port: 9090
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: allow-ingress-to-grafana
 spec:
   podSelector:
