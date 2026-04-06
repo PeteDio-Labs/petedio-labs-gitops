@@ -1,6 +1,6 @@
-# homelab-gitops Docs Index
+# `petedio-labs-gitops` Docs Index
 
-Central documentation for the homelab-gitops control plane repository.
+Central documentation for the `infrastructure/kubernetes/` control-plane directory inside the `petedio-labs-gitops` monorepo.
 
 ## Documents
 
@@ -11,31 +11,28 @@ Central documentation for the homelab-gitops control plane repository.
 ## Repository Structure
 
 ```
-homelab-gitops/
-├── argocd/
-│   ├── applications/        # ArgoCD Application manifests
-│   └── projects/            # AppProject definitions
-├── blog-observability/      # Blog tenant monitoring (ServiceMonitor, alerts, dashboard)
-│   ├── base/
-│   └── overlays/{dev,stage}/
-├── clusters/
-│   ├── dev/sealed-secrets/
-│   └── stage/sealed-secrets/
-├── discord-bot-observability/  # Discord bot tenant monitoring
-│   ├── base/
-│   └── overlays/prod/
-├── docs/                    # This folder
-├── image-updater/           # ArgoCD Image Updater config
-├── mission-control/         # Mission Control ArgoCD app definitions
-├── observability-stack/     # Platform-level observability (Grafana ingress, infra alerts)
-│   └── base/
-└── README.md
+petedio-labs-infrastructure/kubernetes/
+├── infrastructure/kubernetes/
+│   ├── argocd/
+│   ├── blog-observability/
+│   ├── clusters/
+│   ├── knowledge/
+│   ├── image-updater/
+│   ├── observability-stack/
+│   ├── pete-bot-observability/
+│   ├── searxng/
+│   ├── web-search-observability/
+│   └── web-search-service/
+├── blog-infrastructure/kubernetes/
+├── mission-control-infrastructure/kubernetes/
+└── pete-bot-infrastructure/kubernetes/
 ```
 
-## Related Repos
+## Monorepo Directories
 
-| Repo | Local Path | Purpose |
+| Directory | Local Path | Purpose |
 |---|---|---|
-| `blog-gitops` | `gitops/blog-gitops/` | Blog app workload manifests |
-| `discord-bot-gitops` | `gitops/discord-bot-gitops/` | Discord bot workload manifests |
-| `mission-control-gitops` | `gitops/mission-control-gitops/` | Mission Control workload + observability manifests |
+| `gitops` | `infrastructure/kubernetes/infrastructure/kubernetes/` | Argo CD control plane, shared observability, platform apps |
+| `blog-gitops` | `infrastructure/kubernetes/blog-infrastructure/kubernetes/` | Blog app workload manifests |
+| `pete-bot-gitops` | `infrastructure/kubernetes/pete-bot-infrastructure/kubernetes/` | Pete Bot workload manifests |
+| `mission-control-gitops` | `infrastructure/kubernetes/mission-control-infrastructure/kubernetes/` | Mission Control workload + observability manifests |

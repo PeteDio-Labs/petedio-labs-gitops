@@ -11,3 +11,4 @@ resources:
 - servicemonitor.yaml
 - nexus-registry.yaml
 - api-keys-sealed-secret.yaml
+- network-policies.yaml

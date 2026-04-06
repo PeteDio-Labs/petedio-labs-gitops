@@ -1,57 +1,31 @@
-# Homelab Infra GitOps - Centralized Control Plane
+# PeteDio Labs GitOps - Centralized Control Plane
 
 **Status**: ✅ Production - Migration completed 2025-12-25
 
-This repository serves as the **single source of truth** for the homelab GitOps control plane. It centralizes ArgoCD Applications, AppProjects, SealedSecrets, Observability infrastructure, and Image Updater configuration. Application workloads remain in their respective repositories (e.g., [blog-gitops](https://github.com/PeteDio-Labs/blog-gitops)).
+This directory contains the **GitOps control plane** for the consolidated [`petedio-labs-gitops`](https://github.com/PeteDio-Labs/petedio-labs-gitops) monorepo. It centralizes ArgoCD Applications, AppProjects, SealedSecrets, Observability infrastructure, and Image Updater configuration, while workload manifests live in sibling directories such as `blog-infrastructure/kubernetes/`, `mission-control-infrastructure/kubernetes/`, and `pete-bot-infrastructure/kubernetes/`.
 
 ## Repository Structure
 
 ```
-homelab-gitops/
-├── argocd/
+petedio-labs-infrastructure/kubernetes/
+├── infrastructure/kubernetes/
+│   ├── argocd/
 │   ├── projects/              # AppProject definitions
 │   │   ├── blog-dev.yaml
 │   │   ├── blog-stage.yaml
 │   │   └── mission-control.yaml
-│   └── applications/          # ArgoCD Application manifests
-│       ├── blog-dev.yaml
-│       ├── blog-stage.yaml
-│       ├── observability-dev.yaml
-│       ├── observability-stage.yaml
-│       └── argocd-image-updater.yaml
-├── clusters/
-│   ├── dev/sealed-secrets/    # Dev environment secrets
-│   │   ├── admin-credentials.yaml
-│   │   ├── blog-app-credentials.yaml
-│   │   ├── jwt-secret.yaml
-│   │   ├── nexus-registry.yaml
-│   │   └── postgres-credentials.yaml
-│   └── stage/sealed-secrets/  # Stage environment secrets
-│       ├── admin-credentials.yaml
-│       ├── blog-app-credentials.yaml
-│       ├── cloudflare-cert.yaml
-│       ├── jwt-secret.yaml
-│       ├── nexus-registry.yaml
-│       └── postgres-credentials.yaml
-├── image-updater/
-│   ├── base/                  # Image Updater Kustomize base
-│   │   ├── kustomization.yaml
-│   │   └── registry-sealed-secret.yaml
-│   └── values/
-│       └── values.yaml
-└── observability/
-    ├── base/                  # Prometheus/Grafana base
-    │   ├── grafana-dashboards.yaml
-    │   ├── grafana-ingress.yaml
-    │   ├── kustomization.yaml
-    │   └── prometheus-rules.yaml
-    └── overlays/
-        ├── dev/
-        │   └── kustomization.yaml
-        └── stage/
-            ├── grafana-ingress-patch.yaml
-            ├── kustomization.yaml
-            └── prometheus-rules-patch.yaml
+│   │   └── applications/          # ArgoCD Application manifests
+│   ├── clusters/
+│   ├── image-updater/
+│   ├── observability-stack/
+│   ├── blog-observability/
+│   ├── pete-bot-observability/
+│   ├── web-search-observability/
+│   ├── web-search-service/
+│   └── knowledge/
+├── blog-infrastructure/kubernetes/
+├── mission-control-infrastructure/kubernetes/
+└── pete-bot-infrastructure/kubernetes/
 ```
 
 ## Architecture
@@ -63,8 +37,8 @@ homelab-gitops/
 
 ### Image Updater
 - Monitors container images in Nexus registry (docker.toastedbytes.com)
-- Writes image updates to `.argocd-source-blog-{env}.yaml` in blog-gitops overlays
-- ArgoCD auto-syncs changes from blog-gitops repository
+- Writes image updates to `.argocd-source-blog-{env}.yaml` in `blog-infrastructure/kubernetes/kubernetes/overlays/`
+- ArgoCD auto-syncs changes from the `petedio-labs-gitops` monorepo
 
 ### Observability
 - **Base**: Shared Prometheus/Grafana configuration
@@ -76,5 +50,6 @@ homelab-gitops/
 
 ## Repository Links
 
-- **This Repository**: https://github.com/PeteDio-Labs/homelab-gitops
-- **Blog Workloads**: https://github.com/PeteDio-Labs/blog-gitops
+- **Monorepo**: https://github.com/PeteDio-Labs/petedio-labs-gitops
+- **Control Plane Path**: `infrastructure/kubernetes/`
+- **Blog Workloads Path**: `blog-infrastructure/kubernetes/`

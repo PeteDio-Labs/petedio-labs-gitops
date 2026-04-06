@@ -28,11 +28,11 @@ observability namespace:
 
 | ArgoCD Application | GitHub Repo | Source Path | Destination |
 |---|---|---|---|
-| `observability-stack` | `homelab-gitops` | `observability-stack/base` | `observability` |
-| `blog-observability-dev` | `homelab-gitops` | `blog-observability/overlays/dev` | `observability` |
-| `blog-observability-stage` | `homelab-gitops` | `blog-observability/overlays/stage` | `observability` |
-| `discord-bot-observability` | `homelab-gitops` | `discord-bot-observability/overlays/prod` | `observability` |
-| `mission-control-observability` | `mission-control-gitops` | `kubernetes/observability/base` | `observability` |
+| `platform-observability` | `petedio-labs-gitops` | `infrastructure/kubernetes/observability-stack/base` | `observability` |
+| `blog-observability` | `petedio-labs-gitops` | `infrastructure/kubernetes/blog-observability/base` | `observability` |
+| `pete-bot-observability` | `petedio-labs-gitops` | `infrastructure/kubernetes/pete-bot-observability/overlays/prod` | `observability` |
+| `web-search-observability` | `petedio-labs-gitops` | `infrastructure/kubernetes/web-search-observability/overlays/prod` | `observability` |
+| `mission-control-observability` | `petedio-labs-gitops` | `mission-control-infrastructure/kubernetes/kubernetes/observability/base` | `observability` |
 
 ## Namespace Inventory
 
@@ -56,7 +56,7 @@ observability namespace:
 - **Prometheus URL:** `http://kube-prom-stack-kube-prome-prometheus.observability.svc.cluster.local:9090`
 - **Grafana URL:** `https://grafana-dev.toastedbytes.com`
 - **Grafana Internal URL:** `http://kube-prom-stack-grafana.observability.svc.cluster.local`
-- Configured in: `mission-control-gitops/kubernetes/base/backend/configmap.yaml`
+- Configured in: `mission-control-infrastructure/kubernetes/kubernetes/base/backend/configmap.yaml`
 
 ## Dashboard Inventory
 
@@ -94,4 +94,4 @@ observability namespace:
 
 - Blog API does not yet expose Prometheus `/metrics` (no micrometer dependency). Blog dashboard uses container-level metrics from cAdvisor/kube-state-metrics. Adding `micrometer-registry-prometheus` to the Spring Boot app will enable app-level metrics.
 - All dashboard ConfigMaps use `grafana_dashboard: "1"` label for Grafana sidecar auto-discovery.
-- AppProjects `blog-dev` and `blog-stage` allow both `blog-gitops` and `homelab-gitops` as source repos.
+- AppProjects `blog-dev` and `blog-stage` now allow only `petedio-labs-gitops` as the source repo.

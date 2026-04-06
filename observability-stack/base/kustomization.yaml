@@ -6,6 +6,7 @@ namespace: observability
 resources:
   - prometheus-rules.yaml
   - grafana-ingress.yaml
+  - network-policies.yaml
 
 labels:
   - pairs:
