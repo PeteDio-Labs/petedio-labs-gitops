@@ -9,7 +9,7 @@ spec:
     interval: 30s
     rules:
     - alert: NodeDown
-      expr: up{job="prometheus-node-exporter"} == 0
+      expr: up{job="node-exporter"} == 0
       for: 5m
       labels:
         severity: critical
@@ -29,7 +29,7 @@ spec:
         description: "Disk usage is {{ $value | humanizePercentage }} available"
 
     - alert: PrometheusTargetDown
-      expr: up{job="kubernetes-apiservers"} == 0
+      expr: up{job="apiserver"} == 0
       for: 5m
       labels:
         severity: critical

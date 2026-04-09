@@ -1,0 +1,39 @@
+---
+# MetalLB LoadBalancer VIP for the MicroK8s nginx ingress DaemonSet.
+#
+# Assigns a stable internal IP (192.168.50.154) to the nginx ingress controller
+# so that internal DNS can point homelab-private hostnames here without depending
+# on individual node IPs (which can flap due to VLAN/networking issues).
+#
+# Traffic path:
+#   Client → 192.168.50.154:80 → MetalLB → healthy nginx pod → backend service
+#
+# After applying, update /etc/dnsmasq.d/homelab.conf on pete-pi-2 (dns-1)
+# to resolve homelab-private hostnames to this VIP.
+#
+# Apply: kubectl apply -f infrastructure/kubernetes/control-plane/ingress/nginx-internal-lb.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-internal-lb
+  namespace: ingress
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "192.168.50.154"
+  labels:
+    app: nginx-ingress-internal
+spec:
+  type: LoadBalancer
+  selector:
+    name: nginx-ingress-microk8s
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  # Local policy: only route to nodes with a healthy ingress pod.
+  # Prevents MetalLB from sending traffic to k8s-node1 while its ingress is crashing.
+  externalTrafficPolicy: Local
