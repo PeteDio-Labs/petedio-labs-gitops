@@ -5,11 +5,12 @@ metadata:
   labels:
     app: web-search-service
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - port: 3003
     targetPort: 3003
     protocol: TCP
     name: http
+    nodePort: 30303
   selector:
     app: web-search-service
