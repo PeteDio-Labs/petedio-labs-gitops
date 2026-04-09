@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: central-observability
+  namespace: argocd
+  labels:
+    layer: platform
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/PeteDio-Labs/petedio-labs-gitops
+    targetRevision: HEAD
+    path: observability
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

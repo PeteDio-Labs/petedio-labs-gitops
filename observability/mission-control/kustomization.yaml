@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: observability
+
+resources:
+  - servicemonitor-backend.yaml
+  - servicemonitor-notification.yaml
+  - prometheus-rules.yaml
+  - grafana-dashboard-backend.yaml
+  - grafana-dashboard-notification.yaml
+
+labels:
+  - pairs:
+      layer: tenant
+      tenant: mission-control

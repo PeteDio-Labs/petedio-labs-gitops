@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  annotations:
+    prometheus-operator-validated: "true"
+  labels:
+    layer: tenant
+    tenant: mission-control
+  name: mission-control-alerts
+  namespace: observability
+spec:
+  groups:
+  - interval: 30s
+    name: mission-control.rules
+    rules:
+    - alert: MissionControlBackendPodNotReady
+      annotations:
+        description: Pod has not been ready for more than 5 minutes
+        summary: Mission Control backend pod {{ $labels.pod }} is not ready
+      expr: kube_pod_status_ready{namespace="mission-control",pod=~"mission-control-backend-.*",condition="false"}
+        == 1
+      for: 5m
+      labels:
+        layer: tenant
+        severity: warning
+        tenant: mission-control
+    - alert: MissionControlBackendRestarting
+      annotations:
+        description: Restart count increased by more than 3 in 15 minutes
+        summary: Mission Control backend pod {{ $labels.pod }} is restarting often
+      expr: increase(kube_pod_container_status_restarts_total{namespace="mission-control",pod=~"mission-control-backend-.*"}[15m])
+        > 3
+      for: 5m
+      labels:
+        layer: tenant
+        severity: warning
+        tenant: mission-control

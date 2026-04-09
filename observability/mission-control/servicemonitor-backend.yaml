@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+  labels:
+    layer: tenant
+    release: kube-prom-stack
+    tenant: mission-control
+  name: mission-control-backend-monitor
+  namespace: observability
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: http
+  namespaceSelector:
+    matchNames:
+    - mission-control
+  selector:
+    matchLabels:
+      app: mission-control-backend
