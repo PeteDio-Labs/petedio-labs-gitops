@@ -29,8 +29,20 @@ spec:
             name: kube-prom-stack-grafana
             port:
               number: 80
+  # pdlab.dev mirror (dual-domain soak — remove grafana-dev.toastedbytes.com block after cutover)
+  - host: grafana.pdlab.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-prom-stack-grafana
+            port:
+              number: 80
   tls:
   - hosts:
     - grafana-dev.toastedbytes.com
     - grafana-stage.toastedbytes.com
+    - grafana.pdlab.dev
     secretName: grafana-tls
