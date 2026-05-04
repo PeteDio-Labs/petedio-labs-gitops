@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     # ArgoCD Image Updater configuration
-    argocd-image-updater.argoproj.io/image-list: backend=docker.toastedbytes.com/mission-control-backend:develop-latest, frontend=docker.toastedbytes.com/mission-control-web:develop-latest, notifier=docker.toastedbytes.com/notification-service:develop-latest, bot=docker.toastedbytes.com/pete-bot:latest
+    argocd-image-updater.argoproj.io/image-list: backend=docker.pdlab.dev/mission-control-backend:develop-latest, frontend=docker.pdlab.dev/mission-control-web:develop-latest, notifier=docker.pdlab.dev/notification-service:develop-latest, bot=docker.pdlab.dev/pete-bot:latest
     argocd-image-updater.argoproj.io/backend.update-strategy: digest
     argocd-image-updater.argoproj.io/frontend.update-strategy: digest
     argocd-image-updater.argoproj.io/notifier.update-strategy: digest

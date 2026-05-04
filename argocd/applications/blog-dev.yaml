@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     # ArgoCD Image Updater configuration
-    argocd-image-updater.argoproj.io/image-list: blog-api=docker.toastedbytes.com/blog-api:develop-latest, blog-ui=docker.toastedbytes.com/blog-ui:develop-latest, blog-agent=docker.toastedbytes.com/blog-agent:latest
+    argocd-image-updater.argoproj.io/image-list: blog-api=docker.pdlab.dev/blog-api:develop-latest, blog-ui=docker.pdlab.dev/blog-ui:develop-latest, blog-agent=docker.pdlab.dev/blog-agent:latest
     argocd-image-updater.argoproj.io/blog-api.update-strategy: digest
     argocd-image-updater.argoproj.io/blog-ui.update-strategy: digest
     argocd-image-updater.argoproj.io/blog-agent.update-strategy: digest

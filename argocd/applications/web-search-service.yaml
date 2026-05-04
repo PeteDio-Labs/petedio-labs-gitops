@@ -4,7 +4,7 @@ metadata:
   name: web-search-service
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: websearch=docker.toastedbytes.com/web-search-service:latest
+    argocd-image-updater.argoproj.io/image-list: websearch=docker.pdlab.dev/web-search-service:latest
     argocd-image-updater.argoproj.io/websearch.update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
