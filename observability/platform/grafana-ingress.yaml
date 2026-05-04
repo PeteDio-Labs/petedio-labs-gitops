@@ -5,7 +5,9 @@ metadata:
   namespace: observability
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # Cloudflare fronts client TLS; origin serves HTTP. Without ssl-redirect=false,
+    # nginx 308s to https://grafana.pdlab.dev which loops back through Cloudflare.
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
