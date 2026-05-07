@@ -9,6 +9,7 @@ resources:
   - prometheus-rules.yaml
   - grafana-dashboard-backend.yaml
   - grafana-dashboard-notification.yaml
+  - grafana-dashboard-agent-fleet.yaml
 
 labels:
   - pairs:
