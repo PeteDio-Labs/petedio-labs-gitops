@@ -1,0 +1,11 @@
+# Never commit unsealed Secret yaml — use SealedSecrets
+*-unsealed.yaml
+*-unsealed.yml
+**/sealed-secrets/*-unsealed.*
+**/secrets/plaintext/
+*.dec.yaml
+
+# Common noise
+*.tmp
+*.bak
+.DS_Store
