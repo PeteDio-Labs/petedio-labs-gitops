@@ -6,6 +6,10 @@ metadata:
   labels:
     release: kube-prom-stack
 spec:
+  namespaceSelector:
+    matchNames:
+    - blog-dev
+    - blog-stage
   selector:
     matchLabels:
       app: blog-api
